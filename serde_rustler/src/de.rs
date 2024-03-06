@@ -392,7 +392,8 @@ impl<'de, 'a: 'de> de::Deserializer<'de> for Deserializer<'a> {
             // unit variant
             TermType::Atom => Some((EnumType::Unit, self.term)),
             TermType::Binary => Some((EnumType::Unit, self.term)),
-            TermType::Number => Some((EnumType::Unit, self.term)),
+            TermType::Integer => Some((EnumType::Unit, self.term)),
+            TermType::Float => Some((EnumType::Unit, self.term)),
             // newtype or tuple variant
             TermType::Tuple => {
                 let tuple = util::validate_tuple(self.term, None)?;
@@ -426,7 +427,7 @@ impl<'de, 'a: 'de> de::Deserializer<'de> for Deserializer<'a> {
         match self.term.get_type() {
             TermType::Atom => self.deserialize_str(visitor),
             TermType::Binary => self.deserialize_str(visitor),
-            TermType::Number => self.deserialize_i64(visitor),
+            TermType::Integer => self.deserialize_i64(visitor),
             _ => Err(Error::ExpectedAtom),
         }
     }
@@ -714,7 +715,8 @@ impl<'de, 'a: 'de> de::Deserializer<'de> for VariantNameDeserializer<'a> {
                 visitor.visit_string(string)
             }
             TermType::Binary => visitor.visit_string(util::term_to_str(&self.variant)?),
-            TermType::Number => visitor.visit_string(util::term_to_str(&self.variant)?),
+            TermType::Integer => visitor.visit_string(util::term_to_str(&self.variant)?),
+            TermType::Float => visitor.visit_string(util::term_to_str(&self.variant)?),
             _ => Err(Error::ExpectedStringable),
         }
     }
