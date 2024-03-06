@@ -34,12 +34,20 @@ pub fn parse_binary(term: Term) -> Result<&[u8], Error> {
     Ok(binary.as_slice())
 }
 
-pub fn parse_number<'a, T: Decoder<'a>>(term: &Term<'a>) -> Result<T, Error> {
-    if !term.is_number() {
-        return Err(Error::InvalidNumber);
+pub fn parse_integer<'a, T: Decoder<'a>>(term: &Term<'a>) -> Result<T, Error> {
+    if !term.is_integer() {
+        return Err(Error::InvalidInteger);
     }
 
-    term.decode().or(Err(Error::ExpectedNumber))
+    term.decode().or(Err(Error::ExpectedInteger))
+}
+
+pub fn parse_float<'a, T: Decoder<'a>>(term: &Term<'a>) -> Result<T, Error> {
+    if !term.is_float() {
+        return Err(Error::InvalidFloat);
+    }
+
+    term.decode().or(Err(Error::ExpectedFloat))
 }
 
 pub fn parse_str(term: Term) -> Result<&str, Error> {
