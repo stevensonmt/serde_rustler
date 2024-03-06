@@ -43,8 +43,11 @@ quick_error! {
         ExpectedBinary {
             display("Expected to deserialize binary")
         }
-        ExpectedNumber {
-            display("Expected to deserialize number")
+        ExpectedInteger {
+            display("Expected to deserialize integer")
+        }
+        ExpectedFloat {
+            display("Expected to deserialize float")
         }
         ExpectedChar {
             display("Expected to deserialize char")
