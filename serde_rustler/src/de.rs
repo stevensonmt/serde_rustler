@@ -78,7 +78,7 @@ impl<'de, 'a: 'de> de::Deserializer<'de> for Deserializer<'a> {
             // byte array
             TermType::Binary => self.deserialize_str(visitor),
             // seq
-            TermType::EmptyList | TermType::List => self.deserialize_seq(visitor),
+            TermType::List => self.deserialize_seq(visitor),
             // map
             // struct
             // struct variant
