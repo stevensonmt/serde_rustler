@@ -60,12 +60,18 @@ impl<'de, 'a: 'de> de::Deserializer<'de> for Deserializer<'a> {
                 }
             }
             // i8, i16, i32, i64, u8, u16, u32, u64, f32, f64 (i128, u128)
-            TermType::Number => {
+            TermType::Integer => {
                 try_parse_number!(self.term, u64, visitor, visit_u64);
                 try_parse_number!(self.term, i64, visitor, visit_i64);
+                
+
+                Err(Error::ExpectedInteger)
+            }
+
+            TermType::Float => {
                 try_parse_number!(self.term, f64, visitor, visit_f64);
 
-                Err(Error::ExpectedNumber)
+                Err(Error::ExpectedFloat)
             }
             // char
             // string
