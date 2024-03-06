@@ -18,8 +18,11 @@ quick_error! {
         InvalidBoolean {
             display("Failed to deserialize boolean")
         }
-        InvalidNumber {
-            display("Failed to deserialize number")
+        InvalidInteger {
+            display("Failed to deserialize integer")
+        }        
+        InvalidFloat {
+            display("Failed to deserialize float")
         }
         InvalidStringable {
             display("Failed to deserialize term as an &str")
